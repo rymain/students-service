@@ -1,0 +1,25 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: .
+    links:
+      - app_db
+    depends_on:
+      - app_db
+    ports:
+      - 8080:8080
+      - 9990:9990
+      - 8787:8787
+
+  app_db:
+    image: postgres
+    restart: always
+    ports:
+      -  5432:5432
+    environment:
+      POSTGRES_USER: gs_rest_service
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: gs_rest_service
